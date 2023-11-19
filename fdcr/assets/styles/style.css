@@ -1,0 +1,40 @@
+*{
+    margin: 0;
+    padding: 0;
+    
+}
+.sec-2-color{
+    background-color: #301eb3;
+}
+.txt-sec2{
+    color: #FFFFFF;
+    font-size: 36px;
+    font-weight: bold;
+}
+.rep-type{
+    color: #FFFFFF;
+    font-size: 20px;
+    font-weight: 500;
+
+}
+.txt-rep-type{
+    border: none;
+    outline: none;
+    font-size: 20px;
+    font-weight: bold;
+    padding-left: 25px;
+}
+.txt-ent-type{
+    border: none;
+    outline: none;
+    font-size: 20px;
+   
+    padding-left: 25px;
+}
+.sim-text-typ{
+    border: none;
+    outline: none;
+    font-size: 20px;
+   color: green;
+    padding-left: 25px;   
+}
