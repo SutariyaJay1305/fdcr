@@ -1,9 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 from .models import UIManager,ReportTypes,DataManager
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_protect
 import openpyxl
-
+import pandas as pd
 
 # Create your views here.
 
@@ -48,3 +48,17 @@ def verify(request):
             return JsonResponse({'status': 'success', 'message': 'Successfully Verified'})
         except Exception as e:
             return JsonResponse({'status': 'error', 'message': 'Not Verified'})
+
+
+def perform_import_view(request):
+    if request.method == 'POST' and request.FILES['excel_file']:
+        excel_file = request.FILES['excel_file']
+
+        if excel_file.name.endswith('.xls') or excel_file.name.endswith('.xlsx'):
+            df = pd.read_excel(excel_file)
+            df_records = df.to_dict('records')
+            for data in df_records:
+                DataManager.objects.get_or_create(report_type =data["Type"], report_number=data["Number"])
+
+        return HttpResponse("Excel uploaded successfully")
+    return render(request, 'import_form.html')
