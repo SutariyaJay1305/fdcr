@@ -3,6 +3,7 @@ from .models import UIManager,ReportTypes,DataManager
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_protect
 import openpyxl
+from django.shortcuts import render,HttpResponse,redirect
 
 
 # Create your views here.
@@ -20,23 +21,32 @@ def index(request):
     return render(request,'index.html',context)
 
 def upload_excel(file_path):
-    dataframe = openpyxl.load_workbook(file_path)
-    dataframe1 = dataframe.active  
-    heading = False
-    status = "success"
-    for i in range(1, dataframe1.max_row):
-        number = dataframe1.cell(row = i, column = 1 ).value
-        type = dataframe1.cell(row = i, column = 2 ).value
+    if file_path.name.endswith('.xls') or file_path.name.endswith('.xlsx'):
+        dataframe = openpyxl.load_workbook(file_path)
+        dataframe1 = dataframe.active  
+        heading = False
+        status = "success"
+        for i in range(1, dataframe1.max_row):
+            number = dataframe1.cell(row = i, column = 1 ).value
+            type = dataframe1.cell(row = i, column = 2 ).value
 
-        if heading == True:
-            print(number,"::::",type)
-            # DataManager.objects.create(report_number=number,is_active=True,report_type=type)
-        else:
-            if number == "Number" and type=="Type":
-                heading = True
-            else :
-                status = "error"
+            if heading == True:
+                print(number,"::::",type)
+                DataManager.objects.create(report_number=number,is_active=True,report_type=type)
+            else:
+                if number == "Number" and type=="Type":
+                    heading = True
+                else :
+                    status = "error"
 
+def perform_import_view(request):
+    if request.method == 'POST' and request.FILES['excel_file']:
+        excel_file = request.FILES['excel_file']
+        upload_excel(excel_file)
+        
+
+        return HttpResponse("Excel uploaded successfully")
+    return render(request, 'import_form.html')
 
 @csrf_protect
 def verify(request):

@@ -1,0 +1,14 @@
+{% extends 'admin/upload_list.html' %} {% block object-tools-items %}
+{{block.super }}
+<li>
+  <a href="{% url 'upload_data' %}" class="import-link"
+    >Import</a
+  >
+</li>
+<li>
+  <a href="{% url 'admin_home_detail_excel_to_pdf' %}" class="import-link"
+    >Excel to PDF</a
+  >
+</li>
+
+{% endblock %}
