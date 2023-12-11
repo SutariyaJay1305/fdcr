@@ -24,3 +24,7 @@ class DataManager(models.Model):
     report_number = models.CharField(max_length=50, null=False, blank=False)
     is_active = models.BooleanField(default=True)
 
+class Upload(models.Model):
+    created_date = models.DateTimeField(auto_now_add=True)
+    
+

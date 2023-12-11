@@ -58,7 +58,12 @@ def perform_import_view(request):
             df = pd.read_excel(excel_file)
             df_records = df.to_dict('records')
             for data in df_records:
-                DataManager.objects.get_or_create(report_type =data["Type"], report_number=data["Number"])
+                try:
+                    type = ReportTypes.objects.get(type__icontains=data["Type"])
+                except Exception as e:
+                    print(e)
+                    type = None
+                DataManager.objects.get_or_create(report_type =type, report_number=data["Number"])
 
         return HttpResponse("Excel uploaded successfully")
     return render(request, 'import_form.html')
