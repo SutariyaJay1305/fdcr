@@ -29,30 +29,30 @@
 
 
 
-                    <form class="row">
-                        {% csrf_token %}
-                        <div class="col-lg-2">
+                <form class="row">
+                    {% csrf_token %}
+                    <div class="col-lg-2">
 
-                            <label for="report_type" class=" rep-type col-form-label">REPORT TYPE</label>
-                            <select class="form-control select2" name="report_type" id="report_type" required>
-                                <optgroup>
-                                    {% for type in report_type %}
-                                    <option value="{{ type.id }}">{{type.type}}</option>
-                                    {%endfor%}
-                                </optgroup>
-                            </select>
-                        </div>
-                        <div class="col-lg-4">
-                            <label for="report_type" class=" rep-type col-form-label">ENTER REPORT #</label>
-                            <input type="text" id="report_number" class="col-lg-10 txt-ent-type mb-2 col-md-5 col-12 form-control select2"
-                                 placeholder=" Please Enter Report Number">
-                        </div>
-                        <div class="col-lg-4">
-                            <label for="report_type" class=" rep-type col-form-label"><br></label> <input type="text" id="result" input
-                                class="col-lg-10 col-12 sim-text-typ form-control select2 "
-                                value="" >
-                        </div>
-                    </form>
+                        <label for="report_type" class=" rep-type col-form-label">REPORT TYPE</label>
+                        <select class="form-control select2" name="report_type" id="report_type" required>
+                            <optgroup>
+                                {% for type in report_type %}
+                                <option value="{{ type.id }}">{{type.type}}</option>
+                                {%endfor%}
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div class="col-lg-4">
+                        <label for="report_type" class=" rep-type col-form-label">ENTER REPORT #</label>
+                        <input type="text" id="report_number"
+                            class="col-lg-10 txt-ent-type mb-2 col-md-5 col-12 form-control select2"
+                            placeholder=" Please Enter Report Number">
+                    </div>
+                    <div class="col-lg-4">
+                        <label for="report_type" class=" rep-type col-form-label"><br></label> <input type="text"
+                            id="result" input class="col-lg-10 col-12 sim-text-typ form-control select2 " value="">
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -66,28 +66,35 @@
         </div>
     </div>
     <!-- Section 4 -->
-    <div class="container-fluid mt-2 ">
-        <div class="container">
-
-            <div class="row">
-                <div class="col-lg-2 col-md-6 col-6 ">
-                    <img src="{% static 'images/FTC_logo.png' %}" class="my-lg-1 col-lg-6 col-md-5 col-6 p-2">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="row pt-3">
+                    <div class="col-lg-2 col-md-6 col-6 p-0 m-0">
+                        <img src="{% static 'images/FTC.png' %}" class="my-lg-1 col-6 img-fluid">
+                    </div>
+                    <div class="col-lg-2 col-md-6 col-6 p-0 m-0">
+                        <img src="{% static 'images/IEA.png' %}" class="my-lg-1 col-6 img-fluid">
+                    </div>
+                    <div class="col-lg-2 col-md-6 col-6 p-0 m-0">
+                        <img src="{% static 'images/ILO.jpeg' %}" class="my-lg-1 col-6 img-fluid">
+                    </div>
+                    <div class="col-lg-2 col-md-6 col-6 p-0 m-0">
+                        <img src="{% static 'images/SHRM.png' %}" class="my-lg-1 col-6 img-fluid">
+                    </div>
                 </div>
-                <div class="col-lg-2 col-md-6 col-6">
-                    <img src="{% static 'images/IEA_logo.png' %}" class="my-lg-1 col-lg-6 col-md-6 col-6 p-2">
-                </div>
-                <div class="col-lg-2 col-md-6 col-6">
-                    <img src="{% static 'images/ilo_logo.png' %}" class="my-lg-1 col-lg-6 col-md-6 col-6 p-2">
-                </div>
-                <div class="col-lg-2 col-md-6 col-6">
-                    <img src="{% static 'images/SHRM_logo.png' %}" class="my-lg-1 col-lg-6 col-md-6 col-6 p-2">
-                </div>
-
-
-
+            </div>
+            <div class="col-md-auto">
+    
+            </div>
+            <div class="col col-lg-2">
+    
             </div>
         </div>
     </div>
+    
+    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
@@ -99,22 +106,21 @@
     var result = document.getElementById("result");
     wage.addEventListener("keydown", function (e) {
         if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
-            if (wage.value == null | wage.value == "")
-            {
+            if (wage.value == null | wage.value == "") {
                 alert("Please Enter Report Number")
             }
-            else{
-                
+            else {
+
 
                 $.ajax({
                     type: 'POST',
                     url: "{% url 'verify' %}",
-                    data: { 'q': wage.value ,csrfmiddlewaretoken: '{{ csrf_token }}',"report_type" : report_type.value },
+                    data: { 'q': wage.value, csrfmiddlewaretoken: '{{ csrf_token }}', "report_type": report_type.value },
                     success: function (response) {
-                        if (response.status == "success"){
+                        if (response.status == "success") {
                             result.value = wage.value + " is Registered"
                             result.style.color = "green"
-                        }else{
+                        } else {
                             result.value = wage.value + " is not Registered"
                             result.style.color = "red"
 
