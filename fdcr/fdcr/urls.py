@@ -16,8 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+from main import views
+
 
 urlpatterns = [
+    path("admin/home/datamanager/import/", views.perform_import_view, name="admin_main_datamanager_perform_import"),
     path("admin/", admin.site.urls),
-    path("home", include("main.urls")),
+    path("", include("main.urls")),
+
 ]
