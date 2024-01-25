@@ -25,8 +25,8 @@ def upload_excel(file_path):
     heading = False
     status = "success"
     for i in range(1, dataframe1.max_row):
-        number = dataframe1.cell(row = i, column = 1 ).value
-        type = dataframe1.cell(row = i, column = 2 ).value
+        number = dataframe1.cell(row = i, column = 2 ).value
+        type = dataframe1.cell(row = i, column = 1 ).value
 
         if heading == True:
             print(number,"::::",type)
