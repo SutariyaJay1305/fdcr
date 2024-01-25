@@ -16,7 +16,6 @@ def index(request):
         "text2":text2,
         "report_type":report_type
         }            
-    upload_excel("report.xlsx")
     return render(request,'index.html',context)
 
 def upload_excel(file_path):
@@ -44,7 +43,15 @@ def verify(request):
         q = request.POST['q']
         report_type = request.POST['report_type']
         try:
-            data = DataManager.objects.get(report_number=q,is_active=True,report_type=report_type)
+            try:
+                report = ReportTypes.objects.get(id=report_type).type
+                if report =="All" or report =="Other":
+                    data = DataManager.objects.get(report_number=q,is_active=True)
+                else:
+                    data = DataManager.objects.get(report_number=q,is_active=True,report_type=report_type)
+            except Exception as e:
+                print(e)
+                data = DataManager.objects.get(report_number=q,is_active=True,report_type=report_type)
             return JsonResponse({'status': 'success', 'message': 'Successfully Verified'})
         except Exception as e:
             return JsonResponse({'status': 'error', 'message': 'Not Verified'})
