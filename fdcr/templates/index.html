@@ -57,11 +57,25 @@
                             </optgroup>
                         </select>
                     </div>
+                    
                     <div class="col-lg-4">
                         <label for="report_type" class=" rep-type col-form-label">ENTER REPORT #</label>
-                        <input type="text" id="report_number"
+
+                        <input type="search" id="report_number"
                             class="col-lg-10 txt-ent-type mb-2 col-md-5 col-12 form-control select2"
                             placeholder=" Please Enter Report Number">
+                           
+                    </div>
+                    <div class="col-lg-1 text-center">
+                        <label for="report_type" class=" rep-type col-form-label"><br></label> <br>
+
+                        <button type="button" onclick="serach_fn()" class="btn btn-labeled btn-primary  ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                              </svg>
+                        </button>
+                       
+                           
                     </div>
                     <div class="col-lg-4">
                         <label for="report_type" class=" rep-type col-form-label"><br></label> <input type="text"
@@ -115,6 +129,34 @@
     var wage = document.getElementById("report_number");
     var report_type = document.getElementById("report_type");
     var result = document.getElementById("result");
+
+    function serach_fn(){
+        if (wage.value == null | wage.value == "") {
+                alert("Please Enter Report Number")
+            }
+            else {
+
+
+                $.ajax({
+                    type: 'POST',
+                    url: "{% url 'verify' %}",
+                    data: { 'q': wage.value, csrfmiddlewaretoken: '{{ csrf_token }}', "report_type": report_type.value },
+                    success: function (response) {
+                        if (response.status == "success") {
+                            result.value = wage.value + " is Registered"
+                            result.style.color = "green"
+                        } else {
+                            result.value = wage.value + " is not Registered"
+                            result.style.color = "red"
+
+                        }
+                        console.log(response)
+
+                    }
+                });
+            }
+    }
+    
     wage.addEventListener("keydown", function (e) {
         if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
             if (wage.value == null | wage.value == "") {
