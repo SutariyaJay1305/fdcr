@@ -51,9 +51,11 @@
                         <label for="report_type" class=" rep-type col-form-label">REPORT TYPE</label>
                         <select class="form-select select2" name="report_type" id="report_type" required>
                             <optgroup>
+                                <option value="All">All</option>
                                 {% for type in report_type %}
                                 <option value="{{ type.id }}">{{type.type}}</option>
                                 {%endfor%}
+                                <option value="Other">Other</option>
                             </optgroup>
                         </select>
                     </div>
@@ -90,31 +92,31 @@
         <div class="container">
 
             <div class="row">
-                <p class="mt-lg-2 pt-2">{{text2.text_description}}</p>
+                
+                    
+                
+                    <p class="mt-lg-2 pt-2"><a class="mt-lg-2 pt-2" href="mailto:contact@fdcr.us" ><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="#999999" class="bi bi-envelope-fill " viewBox="0 0 16 16">
+                        <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/>
+                      </svg></a> {{text2.text_description}}</p>
             </div>
         </div>
     </div>
     <!-- Section 4 -->
-    <div class="container">
+    <div class="container ">
         <div class="row">
             <div class="col">
-                <div class="row pt-3">
+                <div class="row pt-4">
                     
-                    <div class="col-lg-2 col-md-6 col-6 p-0 m-0">
+                    <div class="col-lg-2 col-md-6 col-6 ">
                         <a href="https://www.iea.org/"><img src="{% static 'images/IEA.png' %}" class="my-lg-1 col-6 img-fluid"></a>
                     </div>
-                    <div class="col-lg-2 col-md-6 col-6 p-0 m-0">
+                    <div class="col-lg-2 col-md-6 col-6 ">
                         <a href="https://ilostat.ilo.org/"><img src="{% static 'images/ILO.jpeg' %}" class="my-lg-1 col-6 img-fluid"></a>
                     </div>
                    
                 </div>
             </div>
-            <div class="col-md-auto">
-    
-            </div>
-            <div class="col col-lg-2">
-    
-            </div>
+           
         </div>
     </div>
     
