@@ -28,8 +28,8 @@ def upload_excel(file_path):
         type = dataframe1.cell(row = i, column = 1 ).value
 
         if heading == True:
-            print(number,"::::",type)
-            # DataManager.objects.create(report_number=number,is_active=True,report_type=type)
+            
+            DataManager.objects.create(report_number=number,is_active=True,report_type=type)
         else:
             if number == "Number" and type=="Type":
                 heading = True
@@ -44,11 +44,13 @@ def verify(request):
         report_type = request.POST['report_type']
         try:
             try:
-                report = ReportTypes.objects.get(id=report_type).type
-                if report =="All" or report =="Other":
+
+                if report_type =="All" or report_type =="Other":
                     data = DataManager.objects.get(report_number=q,is_active=True)
                 else:
-                    data = DataManager.objects.get(report_number=q,is_active=True,report_type=report_type)
+                    report = ReportTypes.objects.get(id=report_type).type
+
+                    data = DataManager.objects.get(report_number=q,is_active=True,report_type=report)
             except Exception as e:
                 print(e)
                 data = DataManager.objects.get(report_number=q,is_active=True,report_type=report_type)
