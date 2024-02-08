@@ -126,3 +126,7 @@ STATIC_ROOT = os.path.join(BASE_DIR,'static')
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+# sudo systemctl restart fdcr
+# sudo systemctl daemon-reload
+# sudo systemctl restart fdcr.socket fdcr.service
+# sudo nginx -t && sudo systemctl restart nginx
