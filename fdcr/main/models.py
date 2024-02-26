@@ -5,7 +5,7 @@ from django.db import models
 class UIManager(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
-    text_description = models.TextField(max_length=200)
+    text_description = models.TextField(max_length=1000)
     UI_position = models.IntegerField(null=False, blank=False)
 
     
