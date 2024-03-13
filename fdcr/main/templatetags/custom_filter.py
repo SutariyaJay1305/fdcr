@@ -11,7 +11,7 @@ def para(description):
     counter = 0
     for i in descriptions:
         if is_new_line:
-            if counter == len(description)-1:
+            if counter == len(descriptions)-1:
                 text += ('<p class="txt-sec2 pb-5">' + i + '</p>')
             else:
                 text += ('<p class="txt-sec2">' + i + '</p>')
