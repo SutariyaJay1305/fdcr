@@ -10,7 +10,7 @@ def para(description):
     descriptions = description.split('\n')
     for i in descriptions:
         if is_new_line:
-            text += ('<p class="txt-sec2 pb-5">' + i + '</p>')
+            text += ('<p class="txt-sec2 ">' + i + '</p>')
     
         else:
             if (len(descriptions)) == 1:
@@ -18,7 +18,7 @@ def para(description):
             else:
                 text += ('<p class="txt-sec2 pt-lg-3 pt-5">' + i + '</p>')
             is_new_line = True
-
+    print(text)
     return mark_safe(text)
 
 @register.filter() 
