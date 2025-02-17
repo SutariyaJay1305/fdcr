@@ -58,6 +58,8 @@ def verify(request):
         except Exception as e:
             return JsonResponse({'status': 'error', 'message': 'Not Verified'})
 
+def mission(request):
+    return render(request,'mission.html')
 
 def perform_import_view(request):
     if request.method == 'POST' and request.FILES['excel_file']:
